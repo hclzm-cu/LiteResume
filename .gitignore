@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.codex-backups/
+
+*.log
+.env
+*.local
+
+*.lnk
+.DS_Store
+Thumbs.db

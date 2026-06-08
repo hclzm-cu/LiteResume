@@ -11,9 +11,10 @@ import ResumePreview from "./components/ResumePreview.vue";
 import SectionEditor from "./components/SectionEditor.vue";
 import {
   accents,
+  chineseFontOptions,
   customModulePresets,
   dateFormats,
-  fontOptions,
+  englishFontOptions,
   genderOptions,
   layoutModes,
   photoModes,
@@ -67,8 +68,12 @@ const appStyle = computed(() => ({
   "--accent-dark": accentMeta.value.dark
 }));
 
+const resumeFontFamily = computed(() =>
+  [globalStyle.englishFontFamily, globalStyle.chineseFontFamily].filter(Boolean).join(", ")
+);
+
 const paperStyle = computed(() => ({
-  "--resume-font-family": globalStyle.fontFamily,
+  "--resume-font-family": resumeFontFamily.value,
   "--resume-base-font-size": `${globalStyle.baseFontSize}px`,
   "--resume-line-height": globalStyle.lineHeight,
   "--resume-section-gap": `${globalStyle.sectionSpacing}px`,
@@ -141,7 +146,8 @@ watch(
         :layout-modes="layoutModes"
         :date-formats="dateFormats"
         :accents="accents"
-        :font-options="fontOptions"
+        :chinese-font-options="chineseFontOptions"
+        :english-font-options="englishFontOptions"
         :global-style="globalStyle"
         :is-fitting="isFitting"
         :fit-snapshot="fitSnapshot"

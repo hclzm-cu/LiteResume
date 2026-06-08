@@ -16,7 +16,7 @@ defineEmits(["preset-change", "add"]);
 </script>
 
 <template>
-  <ElDialog v-model="customModuleDialog.visible" title="新增模块" width="420px">
+  <ElDialog v-model="customModuleDialog.visible" title="新增模块" width="420px" :teleported="false">
     <div class="element-form-stack">
       <label>
         模块类型

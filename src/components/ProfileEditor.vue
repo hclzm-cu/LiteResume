@@ -58,7 +58,7 @@ defineEmits(["photo-change", "remove-photo"]);
         </select>
       </label>
       <label>
-        政治身份
+        政治面貌
         <select v-model="profile.politicalStatus">
           <option v-for="option in politicalStatusOptions" :key="option.value" :value="option.value">
             {{ option.label }}

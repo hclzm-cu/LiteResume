@@ -1,6 +1,6 @@
 export const templates = [
   { label: "现代", value: "modern" },
-  { label: "经典", value: "classic" },
+  { label: "居中", value: "classic" },
   { label: "紧凑", value: "compact" }
 ];
 
@@ -71,17 +71,23 @@ export const accents = [
   { label: "红色", value: "#dc2626", soft: "#feecec", border: "#f5aaaa", dark: "#991b1b" }
 ];
 
-export const fontOptions = [
-  { label: "系统黑体", value: 'Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif' },
-  { label: "微软雅黑", value: '"Microsoft YaHei", "PingFang SC", Arial, sans-serif' },
-  { label: "苹方 / 系统 UI", value: '"PingFang SC", "Segoe UI", "Microsoft YaHei", Arial, sans-serif' },
+export const chineseFontOptions = [
+  { label: "系统黑体", value: '"PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif' },
+  { label: "微软雅黑", value: '"Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif' },
+  { label: "苹方", value: '"PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif' },
   { label: "思源黑体", value: '"Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif' },
   { label: "宋体正式", value: '"SimSun", "Songti SC", serif' },
   { label: "仿宋公文", value: '"FangSong", "FangSong_GB2312", "STFangsong", serif' },
-  { label: "楷体", value: '"KaiTi", "STKaiti", serif' },
-  { label: "Arial", value: 'Arial, "Microsoft YaHei", sans-serif' },
-  { label: "Georgia", value: 'Georgia, "Times New Roman", "Songti SC", serif' },
-  { label: "Times New Roman", value: '"Times New Roman", "Songti SC", serif' }
+  { label: "楷体", value: '"KaiTi", "STKaiti", serif' }
+];
+
+export const englishFontOptions = [
+  { label: "Inter", value: "Inter" },
+  { label: "Arial", value: "Arial" },
+  { label: "Segoe UI", value: '"Segoe UI"' },
+  { label: "Calibri", value: "Calibri" },
+  { label: "Georgia", value: "Georgia" },
+  { label: "Times New Roman", value: '"Times New Roman"' }
 ];
 
 export const photoModes = [
@@ -115,7 +121,8 @@ export const sectionTypeLabels = {
 };
 
 export const defaultGlobalStyle = {
-  fontFamily: fontOptions[0].value,
+  chineseFontFamily: chineseFontOptions[0].value,
+  englishFontFamily: englishFontOptions[0].value,
   baseFontSize: 13,
   lineHeight: 1.62,
   sectionSpacing: 16,

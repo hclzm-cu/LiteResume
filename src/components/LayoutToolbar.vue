@@ -1,7 +1,16 @@
 <script setup>
-import { Download, Loader2, RotateCcw, Sparkles, Undo2 } from "lucide-vue-next";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Download,
+  Loader2,
+  RotateCcw,
+  Sparkles,
+  Undo2
+} from "lucide-vue-next";
 
-defineProps({
+const props = defineProps({
   templates: {
     type: Array,
     required: true
@@ -18,7 +27,11 @@ defineProps({
     type: Array,
     required: true
   },
-  fontOptions: {
+  chineseFontOptions: {
+    type: Array,
+    required: true
+  },
+  englishFontOptions: {
     type: Array,
     required: true
   },
@@ -58,6 +71,38 @@ defineProps({
     type: String,
     default: ""
   }
+});
+
+const fitToastVisible = ref(false);
+const fitToastMessage = ref("");
+let fitToastTimer = 0;
+
+const isFitToastWarning = computed(() => fitToastMessage.value.startsWith("仍然超过一页"));
+const fitToastIcon = computed(() => (isFitToastWarning.value ? AlertTriangle : CheckCircle2));
+
+watch(
+  () => props.fitMessage,
+  (message) => {
+    window.clearTimeout(fitToastTimer);
+
+    if (!message) {
+      fitToastVisible.value = false;
+      return;
+    }
+
+    fitToastMessage.value = message;
+    fitToastVisible.value = true;
+    fitToastTimer = window.setTimeout(
+      () => {
+        fitToastVisible.value = false;
+      },
+      isFitToastWarning.value ? 5200 : 2600
+    );
+  }
+);
+
+onBeforeUnmount(() => {
+  window.clearTimeout(fitToastTimer);
 });
 
 defineEmits([
@@ -105,9 +150,17 @@ defineEmits([
         </select>
       </label>
       <label>
-        字体
-        <select v-model="globalStyle.fontFamily">
-          <option v-for="font in fontOptions" :key="font.value" :value="font.value">
+        中文字体
+        <select v-model="globalStyle.chineseFontFamily">
+          <option v-for="font in chineseFontOptions" :key="font.value" :value="font.value">
+            {{ font.label }}
+          </option>
+        </select>
+      </label>
+      <label>
+        英文字体
+        <select v-model="globalStyle.englishFontFamily">
+          <option v-for="font in englishFontOptions" :key="font.value" :value="font.value">
             {{ font.label }}
           </option>
         </select>
@@ -165,6 +218,17 @@ defineEmits([
       </button>
     </div>
 
-    <p v-if="fitMessage" class="toolbar-status">{{ fitMessage }}</p>
+    <Transition name="fit-toast">
+      <div
+        v-if="fitToastVisible"
+        class="fit-toast"
+        :class="{ 'is-warning': isFitToastWarning }"
+        role="status"
+        aria-live="polite"
+      >
+        <component :is="fitToastIcon" />
+        <span>{{ fitToastMessage }}</span>
+      </div>
+    </Transition>
   </section>
 </template>

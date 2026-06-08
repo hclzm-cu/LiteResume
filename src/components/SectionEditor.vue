@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import { ElButton, ElCheckbox, ElDatePicker } from "element-plus";
+import { ElCheckbox, ElDatePicker } from "element-plus";
 import Draggable from "vuedraggable";
 import {
   ArrowDown,
@@ -77,9 +77,10 @@ function isEntrySection(section) {
       <h2 id="moduleTitle">模块排版</h2>
       <div class="heading-actions">
         <span class="muted-text">拖动左侧手柄调整顺序</span>
-        <ElButton size="small" type="primary" @click="$emit('open-custom-module-dialog')">
+        <button class="primary-button small" type="button" @click="$emit('open-custom-module-dialog')">
+          <Plus />
           新增模块
-        </ElButton>
+        </button>
       </div>
     </div>
     <Draggable v-model="editableSections" class="section-drag-list" handle=".drag-handle" item-key="id" tag="div">

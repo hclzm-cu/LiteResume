@@ -51,6 +51,13 @@ button:disabled {
 }
 
 .app-shell {
+  --el-color-primary: var(--accent);
+  --el-color-primary-dark-2: var(--accent-dark);
+  --el-color-primary-light-3: var(--accent);
+  --el-color-primary-light-5: var(--accent-border);
+  --el-color-primary-light-7: var(--accent-border);
+  --el-color-primary-light-8: var(--accent-soft);
+  --el-color-primary-light-9: var(--accent-soft);
   height: 100vh;
   min-height: 0;
   display: grid;
@@ -152,7 +159,7 @@ button:disabled {
 }
 
 .toolbar-group-compact {
-  grid-template-columns: repeat(5, minmax(88px, 1fr));
+  grid-template-columns: repeat(6, minmax(82px, 1fr));
 }
 
 .toolbar-sliders {
@@ -189,19 +196,6 @@ button:disabled {
   white-space: nowrap;
 }
 
-.toolbar-status {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: 8px 10px;
-  border: 1px solid var(--accent-border);
-  border-radius: 8px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
 .primary-button,
 .ghost-button,
 .icon-button {
@@ -233,6 +227,12 @@ button:disabled {
 }
 
 .ghost-button.small {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.primary-button.small {
   min-height: 34px;
   padding: 0 11px;
   font-size: 13px;
@@ -287,6 +287,58 @@ textarea:focus-visible {
   animation: spin 0.9s linear infinite;
 }
 
+.fit-toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: 60;
+  max-width: min(520px, calc(100vw - 32px));
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--accent-dark);
+  box-shadow: 0 14px 34px rgba(27, 39, 51, 0.16);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+  transform: translate(-50%, 0);
+}
+
+.fit-toast.is-warning {
+  border-color: #f0c177;
+  color: #8a5a00;
+}
+
+.fit-toast svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: currentColor;
+}
+
+.fit-toast span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.fit-toast-enter-active,
+.fit-toast-leave-active {
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.fit-toast-enter-from,
+.fit-toast-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -10px);
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -325,13 +377,18 @@ textarea:focus-visible {
 .preview-toolbar {
   justify-content: space-between;
   gap: 12px;
-  min-height: 56px;
-  padding: 10px 18px;
+  min-height: 40px;
+  padding: 4px 12px;
   background: #ffffff;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
+}
+
+.preview-toolbar .ghost-button.small {
+  min-height: 30px;
+  padding: 0 9px;
 }
 
 .field-grid,
@@ -688,6 +745,20 @@ textarea {
   font-weight: 700;
 }
 
+.date-control .el-checkbox .el-checkbox__inner:hover,
+.date-control .el-checkbox .el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: var(--accent);
+}
+
+.date-control .el-checkbox .el-checkbox__input.is-checked .el-checkbox__inner {
+  border-color: var(--accent);
+  background-color: var(--accent);
+}
+
+.date-control .el-checkbox .el-checkbox__input.is-checked + .el-checkbox__label {
+  color: var(--accent-dark);
+}
+
 .entry-editor {
   display: grid;
   gap: 12px;
@@ -1010,14 +1081,40 @@ textarea {
 
 .template-classic .resume-header {
   text-align: center;
+  justify-items: center;
+  padding-right: 0;
   border-bottom-width: 1px;
 }
 
+.template-classic.has-photo .resume-header {
+  padding-left: 35mm;
+  padding-right: 35mm;
+}
+
 .template-classic .resume-identity {
+  display: grid;
   justify-items: center;
+  width: 100%;
+}
+
+.template-classic .resume-identity > div {
+  max-width: 100%;
+}
+
+.template-classic .resume-photo {
+  position: absolute;
+  top: -2mm;
+  right: 0;
+  justify-self: auto;
+  margin-top: 0;
 }
 
 .template-classic .resume-contact {
+  justify-content: center;
+  text-align: center;
+}
+
+.template-classic .resume-contact span {
   justify-content: center;
 }
 
@@ -1053,8 +1150,7 @@ textarea {
   }
 
   .toolbar-sliders,
-  .toolbar-actions,
-  .toolbar-status {
+  .toolbar-actions {
     grid-column: 1 / -1;
   }
 
@@ -1115,8 +1211,7 @@ textarea {
 
   .toolbar-brand,
   .toolbar-group,
-  .toolbar-actions,
-  .toolbar-status {
+  .toolbar-actions {
     grid-column: 1 / -1;
   }
 
